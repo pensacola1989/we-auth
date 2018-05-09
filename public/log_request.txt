@@ -1,0 +1,25 @@
+* Hostname was found in DNS cache
+* Hostname in DNS cache was stale, zapped
+*   Trying 42.159.125.221...
+* Connected to 42.159.125.221 (42.159.125.221) port 52683 (#0)
+> POST /inside_test//api/profile/search-simple HTTP/1.1
+Host: 42.159.125.221:52683
+Accept: */*
+Content-Length: 24
+Content-Type: application/x-www-form-urlencoded
+
+* upload completely sent off: 24 out of 24 bytes
+< HTTP/1.1 401 Unauthorized
+* Server nginx/1.4.6 (Ubuntu) is not blacklisted
+< Server: nginx/1.4.6 (Ubuntu)
+< Date: Mon, 22 May 2017 05:52:18 GMT
+< Content-Type: application/json; charset=utf-8
+< Content-Length: 54
+< Connection: keep-alive
+< Cache-Control: no-cache
+< Pragma: no-cache
+< Expires: -1
+< X-AspNet-Version: 4.0.30319
+< X-Powered-By: ASP.NET
+< 
+* Connection #0 to host 42.159.125.221 left intact
