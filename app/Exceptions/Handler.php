@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use App\Services\Exception\EntityNotFoundException;
 use App\Services\Exception\VerifyCodeException;
 use Exception;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;

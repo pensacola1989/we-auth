@@ -11,7 +11,6 @@
 |
  */
 
-
 $router->get('test_tpl', 'UserController@sendTpl');
 $router->group(['prefix' => 'api/v1', ['middleware' => ['log']]], function () use ($router) {
 
@@ -24,10 +23,12 @@ $router->group(['prefix' => 'api/v1', ['middleware' => ['log']]], function () us
     $router->post('wechat-auth/session/{code}', 'AuthController@getWechatSession');
     $router->post('upload', 'AttachmentController@uploadAttachment');
     $router->post('upload_receipt', 'AttachmentController@uploadReceipt');
-    $router->group(['middleware' => ['wechat-auth', 'auth']], function () use ($router) {
-
-        $router->post('post/{id}/like', 'PostController@like');
-    });
+    $router->post('wechat-auth/phone_number/{code}', 'AuthController@getPhoneNumber');
+    $router->post('wechat-notify', 'NotifyController@sendNotify');
+//    $router->group(['middleware' => ['wechat-auth', 'auth']], function () use ($router) {
+    //
+    //        $router->post('post/{id}/like', 'PostController@like');
+    //    });
 });
 
 function resource($uri, $controller)
