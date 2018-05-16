@@ -1,8 +1,9 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use JiaweiXS\WeApp\WeApp;
-use Laravel\Lumen\Routing\Controller;
 
 class NotifyController extends Controller
 {
