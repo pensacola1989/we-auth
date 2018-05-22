@@ -10,13 +10,11 @@ namespace App\Http\Controllers;
 use App\Services\Account\LoginContract;
 use App\Services\Account\UserContract;
 use App\Services\Exception\EntityNotFoundException;
-use App\Services\Exception\VerifyCodeException;
 use App\Services\KdCrm\KdCrmContract;
 use App\Services\WechatAuth\WechatAuth;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Tymon\JWTAuth\JWTAuth;
 
@@ -103,17 +101,16 @@ class AuthController extends Controller
         }
     }
 
-
     public function syncWechatToCrm(Request $request, $code)
     {
-        Log::info('===================enter sync wechat to crm');
+        Log::info('===================enter sync wechat to crm==================');
         $mobile = $request->mobile;
-        $verifyCode = $request->verifyCode;
+        // $verifyCode = $request->verifyCode;
         $locationCode = $request->locationCode;
-        $verifyCodeInCache = Cache::get($mobile);
-        if ($verifyCode != $verifyCodeInCache) {
-            throw new VerifyCodeException;
-        }
+        // $verifyCodeInCache = Cache::get($mobile);
+        // if ($verifyCode != $verifyCodeInCache) {
+        //     throw new VerifyCodeException;
+        // }
         $weChat = app()->make(WechatAuth::class);
         $loginInfo = $weChat->getLoginInfo($code);
         $userInfo = $weChat->getUserInfo($request->encryptedData, $request->iv);

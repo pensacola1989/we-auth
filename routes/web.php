@@ -25,6 +25,12 @@ $router->group(['prefix' => 'api/v1', ['middleware' => ['log']]], function () us
     $router->post('upload_receipt', 'AttachmentController@uploadReceipt');
     $router->post('wechat-auth/phone_number/{code}', 'AuthController@getPhoneNumber');
     $router->post('wechat-notify', 'NotifyController@sendNotify');
+
+    /**
+     * bind WeChat User to CRM
+     */
+    $router->post('wechat-auth/bind/{code}', 'AuthController@syncWechatToCrm');
+
 //    $router->group(['middleware' => ['wechat-auth', 'auth']], function () use ($router) {
     //
     //        $router->post('post/{id}/like', 'PostController@like');
