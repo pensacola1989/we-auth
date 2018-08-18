@@ -149,8 +149,10 @@ class KdCrmService implements KdCrmContract
                     'headers' => [
 //                    'Content-Type' => 'application/x-www-form-urlencoded',
                         'Cache-Control' => 'no-cache',
-                        'Token' => '2a1f9757-de00-4035-b820-c368c8d542fa',
-                        'SvcAuth' => 'TUlOSUFQUC1BRE1JTg==,Q3ladjhORmhBQg==',
+                        'Token' => $this->crmToken,
+                        'SvcAuth' => $this->serviceAuth
+                        // 'Token' => '2a1f9757-de00-4035-b820-c368c8d542fa',
+                        // 'SvcAuth' => 'TUlOSUFQUC1BRE1JTg==,Q3ladjhORmhBQg==',
                     ],
                     'json' =>
                     [

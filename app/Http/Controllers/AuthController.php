@@ -121,7 +121,13 @@ class AuthController extends Controller
         $profileObj->MemberInfo = $this->crmRepository->getMemberNumber($profileObj->CustomerNumber, $profileObj->Token);
         $profileObj->Summary = $this->crmRepository->getMemberSummary($profileObj->CustomerNumber, $profileObj->Token);
 
-        return json_encode($profileObj);
+        return [
+            'status' => 1,
+            'profile' => $profileObj,
+            'unionId' => $userInfo->unionId,
+            'openId' => $userInfo->openId,
+        ];
+        // return json_encode($profileObj);
 
     }
 
@@ -142,14 +148,20 @@ class AuthController extends Controller
             $profileRet = json_decode($profileResponse);
             $profileRet && $customerNumber = $profileRet->CustomerNumber;
         }
-        $this->crmRepository->updateSocialProfile($customerNumber, [
-            'unionId' => $wechatUserInfo->unionId,
-            'nickName' => $wechatUserInfo->nickName,
-            'genderCode' => $wechatUserInfo->gender == 1 ? 'M' : 'F',
-        ]);
+        try {
 
-        $profile = $this->crmRepository->publshProfileToken($wechatUserInfo->unionId);
+            $this->crmRepository->updateSocialProfile($customerNumber, [
+                'unionId' => $wechatUserInfo->unionId,
+                'nickName' => $wechatUserInfo->nickName,
+                'genderCode' => $wechatUserInfo->gender == 1 ? 'M' : 'F',
+            ]);
+        } catch (\Exception $ex) {
+            Log::log('....social profile already linked...');
+        } finally {
+            $profile = $this->crmRepository->publshProfileToken($wechatUserInfo->unionId);
 
-        return $profile;
+            return $profile;
+        }
+
     }
 }
