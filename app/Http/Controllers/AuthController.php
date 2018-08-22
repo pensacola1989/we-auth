@@ -73,6 +73,7 @@ class AuthController extends Controller
             Log::info('...........' . $unionId . '............');
             $profile = $this->crmRepository->publshProfileToken($unionId);
             $profileObj = json_decode($profile);
+            // dd($profile);
             Log::info('.............................profile obj.......');
             Log::info($profile);
             Log::info($profileObj->Token);

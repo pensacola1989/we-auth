@@ -13,7 +13,7 @@
 
 $router->get('test_tpl', 'UserController@sendTpl');
 $router->group(['prefix' => 'api/v1', ['middleware' => ['log']]], function () use ($router) {
-
+    
     $router->get('/', function () use ($router) {
         echo $router->app->version();
     });

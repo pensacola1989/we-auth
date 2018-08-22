@@ -87,7 +87,7 @@ class KdCrmService implements KdCrmContract
                 "GenderCode" => "M",
                 "Password" => '88888888',
                 "Birthday" => '1990-11-24T00:00:00+08:00',
-                "LocationCode" => $profile['locationCode'],
+                "LocationCode" => $profile['locationCode'] !== '' ? $profile['locationCode'] : 'LHQS',
 //                "LocationCode" => "ESITE"
             ]
         )
@@ -191,7 +191,7 @@ class KdCrmService implements KdCrmContract
                 ])
                 ->getBody()
                 ->getContents();
-
+                // dd($response);
             return json_decode($response)[0];
         } catch (\Exception $exception) {
             throw $exception;
