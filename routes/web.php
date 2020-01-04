@@ -13,13 +13,15 @@
 
 $router->get('test_tpl', 'UserController@sendTpl');
 $router->group(['prefix' => 'api/v1', ['middleware' => ['log']]], function () use ($router) {
-    
+
     $router->get('/', function () use ($router) {
         echo $router->app->version();
     });
     /**
      * set a wechat session
      */
+
+    $router->post('session.wechat.code2session.{authCode}', 'AuthController@getSessionForWeChat');
     $router->post('wechat-auth/session/{code}', 'AuthController@getWechatSession');
     $router->post('upload', 'AttachmentController@uploadAttachment');
     $router->post('upload_receipt', 'AttachmentController@uploadReceipt');
@@ -31,7 +33,7 @@ $router->group(['prefix' => 'api/v1', ['middleware' => ['log']]], function () us
      */
     $router->post('wechat-auth/bind/{code}', 'AuthController@syncWechatToCrm');
 
-//    $router->group(['middleware' => ['wechat-auth', 'auth']], function () use ($router) {
+    //    $router->group(['middleware' => ['wechat-auth', 'auth']], function () use ($router) {
     //
     //        $router->post('post/{id}/like', 'PostController@like');
     //    });

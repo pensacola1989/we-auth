@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: danielwu
@@ -57,6 +58,34 @@ class AuthController extends Controller
             return $decryptedData;
         } catch (RequestException $e) {
             Log::info(json_encode($e));
+        }
+    }
+
+    public function getSessionForWeChat(Request $request, $authCode)
+    {
+        $status = 0;
+        $weChat = app()->make(WechatAuth::class);
+        $authInfo = $weChat->getLoginInfo($authCode);
+        $unionId = isset($authInfo['unionid']) ? $authInfo['unionid'] : null;
+        try {
+            $profile = $this->crmRepository->publshProfileToken($unionId);
+            $profileObj = json_decode($profile);
+
+            $status = 1;
+
+            return [
+                'status' => 1,
+                'profile' => $profileObj,
+                'unionId' => $unionId,
+                'openId' => $authInfo['openId'],
+            ];
+        } catch (\Exception $exception) {
+            return [
+                'status' => 0,
+                'profile' => null,
+                'unionId' => $authInfo['unionId'],
+                'openId' => $authInfo['openId'],
+            ];
         }
     }
 
@@ -150,7 +179,6 @@ class AuthController extends Controller
             $profileRet && $customerNumber = $profileRet->CustomerNumber;
         }
         try {
-
             $this->crmRepository->updateSocialProfile($customerNumber, [
                 'unionId' => $wechatUserInfo->unionId,
                 'nickName' => $wechatUserInfo->nickName,
@@ -163,6 +191,5 @@ class AuthController extends Controller
 
             return $profile;
         }
-
     }
 }
