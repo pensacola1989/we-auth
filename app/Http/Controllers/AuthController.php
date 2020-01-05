@@ -77,14 +77,14 @@ class AuthController extends Controller
                 'status' => 1,
                 'profile' => $profileObj,
                 'unionId' => $unionId,
-                'openId' => $authInfo['openId'],
+                'openId' => $authInfo['openid'],
             ];
         } catch (\Exception $exception) {
             return [
                 'status' => 0,
                 'profile' => null,
-                'unionId' => $authInfo['unionId'],
-                'openId' => $authInfo['openId'],
+                'unionId' => $authInfo['unionid'],
+                'openId' => $authInfo['openid'],
             ];
         }
     }
