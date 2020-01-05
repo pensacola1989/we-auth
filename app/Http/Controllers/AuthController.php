@@ -70,7 +70,7 @@ class AuthController extends Controller
         try {
             $profile = $this->crmRepository->publshProfileToken($unionId);
             $profileObj = json_decode($profile);
-
+            $profileObj->Summary = $this->crmRepository->getMemberSummary($profileObj->CustomerNumber, $profileObj->Token);
             $status = 1;
 
             return [
