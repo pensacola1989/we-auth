@@ -84,7 +84,7 @@ class AuthController extends Controller
             return [
                 'status' => 0,
                 'profile' => null,
-                'unionId' => $authInfo['unionid'],
+                'unionId' => $authInfo['unionid'] || null,
                 'openId' => $authInfo['openid'],
             ];
         }
